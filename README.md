@@ -101,7 +101,8 @@ As seen in the screenshot, the table does not exist.
 
 
 The following command was used:
-```docker run --name postgresql -e POSTGRES_PASSWORD=your_password -p 5432:5432 -v pgdata:/var/lib/postgresql/data -d postgres```
+ 
+ ```docker run --name postgresql -e POSTGRES_PASSWORD=your_password -p 5432:5432 -v pgdata:/var/lib/postgresql/data -d postgres```
 
 This command launched the PostgreSQL container and attached it to a volume named "pgdata". This ensures that the database data is stored on the host disk and will not be lost when the container is deleted.
 
