@@ -39,7 +39,8 @@ A project called "Calculator" was found on GitHub, which allows for easy executi
 ![4](https://github.com/Ulania/Dockerize/assets/96245511/776b5473-1f90-4dd1-b784-3b2c5129ea11)
 
     ->Cloning the application:
-![5](https://github.com/Ulania/Dockerize/assets/96245511/8e884f4c-4be0-42c5-91df-541bdb20c63c)
+
+    ![5](https://github.com/Ulania/Dockerize/assets/96245511/8e884f4c-4be0-42c5-91df-541bdb20c63c)
 
     ->Environment setup and build execution:
 ![6](https://github.com/Ulania/Dockerize/assets/96245511/129491b0-e7ff-412a-bfd0-9ff229efbe56)
@@ -47,14 +48,14 @@ A project called "Calculator" was found on GitHub, which allows for easy executi
     ->Tests executed:
 ![10](https://github.com/Ulania/Dockerize/assets/96245511/978c2460-fa79-4add-b30e-341351c6aef2)
 
-4. The process was repeated inside a container.
+5. The process was repeated inside a container.
 -> The repository has been cloned and the code has been built:
 ![11](https://github.com/Ulania/Dockerize/assets/96245511/d7115fbe-7115-4ec1-98b2-2e3f41398d63)
 
     ->Compilation:
 ![13](https://github.com/Ulania/Dockerize/assets/96245511/cb0ce6b0-fbb0-4ec1-b910-99363f58b81d)
 
-5. Based on the image created by the previous Dockerfile, another Dockerfile has been created to run tests
+6. Based on the image created by the previous Dockerfile, another Dockerfile has been created to run tests
 -> The first container performs all the steps up to the build:
 ![14](https://github.com/Ulania/Dockerize/assets/96245511/3734a70d-ab54-417b-9515-5fd241a22aba)
 
@@ -69,32 +70,36 @@ A project called "Calculator" was found on GitHub, which allows for easy executi
 ![17](https://github.com/Ulania/Dockerize/assets/96245511/0639b2b5-e50e-44ad-b539-362ab2878776)
 
    b. dockerfile_lab3_test
-![18](https://github.com/Ulania/Dockerize/assets/96245511/e557998d-c56d-4ccc-94c0-e641e2da1dc5)
+
+   ![18](https://github.com/Ulania/Dockerize/assets/96245511/e557998d-c56d-4ccc-94c0-e641e2da1dc5)
 
 
 ### 3. Exploring state persistence in Docker containers and exposing ports for communication with database applications.
 
 1. A database container was created without a volume.
+The PostgreSQL image was downloaded from Docker Hub:
 ![1](https://github.com/Ulania/Dockerize/assets/96245511/547f4d67-d3f1-4561-8341-699d0e1da503)
 
-The PostgreSQL image was downloaded from Docker Hub.
+2. Operations were performed on the database. An interactive psql session was started in the "postgresql" Docker container, connecting to the PostgreSQL server running inside the container.
 
-2. Operations were performed on the database:
+    ->An interactive terminal was attached, and the command-line interface (CLI) was used to communicate with the database:
+![2](https://github.com/Ulania/Dockerize/assets/96245511/0bf13d93-4f8a-4a2b-b5aa-b0b68a5e3b42)
 
-    -> An interactive psql session was started in the "postgresql" Docker container, connecting to the PostgreSQL server running inside the container.
-![3](https://github.com/Ulania/Dockerize/assets/96245511/0c1ded92-8408-4041-a251-5675bd87c952)
-    -> Tables and data were added to the database using CLI (Command Line Interface) communication.
-![3 1](https://github.com/Ulania/Dockerize/assets/96245511/6cac4aa2-3072-42c8-a887-cc0cc13a3fd9)
+    -> Tables and data were added:
+
+    ![3](https://github.com/Ulania/Dockerize/assets/96245511/0c1ded92-8408-4041-a251-5675bd87c952)
+
+    ![3 1](https://github.com/Ulania/Dockerize/assets/96245511/6cac4aa2-3072-42c8-a887-cc0cc13a3fd9)
 
 3. The container was deleted and then recreated from the same image.
-![4](https://github.com/Ulania/Dockerize/assets/96245511/368072aa-276a-4c0c-ba94-b3be964d20fd)
+![4](https://github.com/Ulania/Dockerize/assets/96245511/4829d9a1-580d-4103-8df6-b2d898e6dea4)
 
 As seen in the screenshot, the table does not exist.
 
 4. The same container was recreated with a volume attached, where the volume was mounted to the data directory of the database.
-
 ![5](https://github.com/Ulania/Dockerize/assets/96245511/6e42d266-fe65-4ca7-8b5b-c78990fe5f7b)
-   
+
+
 The following command was used:
 ```docker run --name postgresql -e POSTGRES_PASSWORD=your_password -p 5432:5432 -v pgdata:/var/lib/postgresql/data -d postgres```
 
@@ -111,29 +116,32 @@ For stateful applications, it is usually recommended to use sessions to store us
 
 Port Exposing:
 
-DBeaver was downloaded.
-![8](https://github.com/Ulania/Dockerize/assets/96245511/61d13d3d-9d04-4126-b003-dff40e20bbdb)
+   DBeaver was downloaded:
+    ![8](https://github.com/Ulania/Dockerize/assets/96245511/61d13d3d-9d04-4126-b003-dff40e20bbdb)
 
 1. A container was prepared with port forwarding for the database container (exported the database port).
-![9](https://github.com/Ulania/Dockerize/assets/96245511/5331a80d-40ce-4b30-8ea1-16ed84eaaa59)
 
+2. Using the exported port, a connection was established with the database using a local (non-containerized) client such as DBeaver.
+
+    -> Connection testing to the database was performed:
+
+    ![9](https://github.com/Ulania/Dockerize/assets/96245511/5331a80d-40ce-4b30-8ea1-16ed84eaaa59)
+
+    -> Database operations, including creating tables and adding data, were executed:
 ![10](https://github.com/Ulania/Dockerize/assets/96245511/74d9f6e0-bde6-4e34-92d5-9aa0b56e6c0d)
+   
+3. A second container was created with a database client.
 
-3. Using the exported port, a connection was established with the database using a local (non-containerized) client such as DBeaver.
+    ![11](https://github.com/Ulania/Dockerize/assets/96245511/69f58507-898f-4797-9cba-b10781373d34)
 
-    -> Connection testing to the database was performed.
-    -> Database operations, including creating tables and adding data, were executed.
-4. A second container was created with a database client.
-
-![11](https://github.com/Ulania/Dockerize/assets/96245511/69f58507-898f-4797-9cba-b10781373d34)
-
+    ->Created containers:
 ![11 1](https://github.com/Ulania/Dockerize/assets/96245511/392bd0ca-c410-45a8-91b3-62e2aa3e8dd9)
 
-5. Using the CLI in the second container, a connection was established with the database in the first container.
+4. Using the CLI in the second container, a connection was established with the database in the first container.
 ![12](https://github.com/Ulania/Dockerize/assets/96245511/1f0ea5b4-fc3d-40e8-8da4-3aa951e5022c)
 
 Initially, a container with the PostgreSQL image was launched, and after logging into it, the postgresql-client was installed. Then, a successful connection was made to the database running in the first container.
 
-7. Database operations (adding a row) were executed using the second container's CLI, and the changes were verified using the database client.
+5. Database operations (adding a row) were executed using the second container's CLI, and the changes were verified using the database client.
 ![13](https://github.com/Ulania/Dockerize/assets/96245511/840489da-9cc6-4f33-9e10-55b6d3ef2e79)
 
